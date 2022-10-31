@@ -1,0 +1,28 @@
+name: release version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Build and Test
+        uses: qcastel/github-actions-maven-cmd@master
+        with:
+          maven-args: "clean install"
+
+      - name: Release
+        uses: qcastel/github-actions-maven-release@TAG_NAME
+        env:
+          JAVA_HOME: /usr/lib/jvm/java-17-openjdk/
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          maven-args: "-Dmaven.javadoc.skip=true -DskipTests -DskipITs -Ddockerfile.skip -DdockerCompose.skip"
+          release-branch-name: "main"
+          version-patch: true
