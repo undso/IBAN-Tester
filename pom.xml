@@ -10,12 +10,20 @@
 	</parent>
 	<groupId>de.friedrichs</groupId>
 	<artifactId>ibantester</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>IBAN-Tester</name>
 	<description>Kleine GUI zum Testen von IBANs</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+
+	<scm>
+		<connection>scm:git:${project.scm.url}</connection>
+		<developerConnection>scm:git:${project.scm.url}</developerConnection>
+		<url>git@github.com:undso/IBAN-Tester.git</url>
+		<tag>HEAD</tag>
+	</scm>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -38,6 +46,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<scmCommentPrefix>[ci skip]</scmCommentPrefix>
+					<tagNameFormat>@{project.version}</tagNameFormat>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
